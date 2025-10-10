@@ -3,8 +3,11 @@ require_once 'includes/utils.php';
 
 use Src\Module\Auth\Login;
 use Src\Module\Auth\Register;
+use Src\Module\LoanApplication\LoanApplicationCrudActions;
 
 $action = $_POST['action'];
+$moduleId =  $_POST['moduleId'];
+$record =  $_POST['id'] ?? '';
 
 if (!empty($action))
 {
@@ -16,20 +19,31 @@ if (!empty($action))
         $ar = [
             'action' => $action  
           , 'postData' => $_POST 
+          , 'record' => $record
         ];
         
-        switch ($action)
+        switch ($moduleId)
         {
-            case 'register':
-            case 'verify':
-            case 'regenerateOtp':
-                $objAction =  new Register($ar);
+            case DEF_MODULE_ID_AUTH:
+                switch ($action)
+                {
+                    case 'register':
+                    case 'verify':
+                    case 'regenerateOtp':
+                        $objAction =  new Register($ar);
+                        break;
+                    case 'login':
+                        $objAction =  new Login($ar);
+                        break;
+                }
                 break;
-            case 'login':
-                $objAction =  new Login($ar);
+                
+            case DEF_MODULE_ID_LOAN_APPLICATION:
+                $objAction =  new LoanApplicationCrudActions($ar);
                 break;
+                
         }
-
+    
         $objAction->doInvokeAction();
         $db->commit(); // Commit the transaction
         // Return success message

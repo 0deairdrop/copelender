@@ -2,13 +2,20 @@
 <script>
     var varCurrentPath = "<?= DEF_ROOT_PATH ?>";
     var varRedirectPage = "<?= DEF_FULL_ROOT_PATH . '/' . $redirect ?>";
+    var moduleId = "<?= $module ?>";
     $(document).ready(function() {
         // Get the current URL path (normalized, no trailing slash)
         var currentPage = window.location.pathname.replace(/\/$/, '').split('/').pop();
         // Array of page names where the form submission should be excluded
-        var excludePages = ['profile', 'dashboard', 'registrationdetails', 'registration', 'import', 'calender'];
+        var excludePages = ['loanApplication', 'loans'];
         if (!excludePages.includes(currentPage)) 
         {
+            $('form').each(function() {
+                if ($(this).find('input[name="moduleId"]').length === 0) {
+                    $(this).append('<input type="hidden" name="moduleId" value="' + moduleId + '">');
+                }
+            });
+
             $('form').on('submit', function(e) {
                 e.preventDefault(); // Prevent default form submission
                 $.ajax({
@@ -55,3 +62,6 @@
 <script src="assets/js/functions.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

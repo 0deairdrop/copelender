@@ -22,7 +22,6 @@ class ModuleCrudActions
         self::$moduleId = $arParams['moduleId'] ?? '';
         self::$userId = $arParams['userId'] ?? '';
          
-
         // for existing records check validity
         if (strlen(self::$record) == 36)
         {

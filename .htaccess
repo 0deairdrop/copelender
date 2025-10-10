@@ -1,0 +1,20 @@
+ErrorDocument 404 /404.php
+
+Options +FollowSymLinks
+RewriteEngine On
+
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+#RewriteCond %{HTTP_HOST} http://localhost/copelender/
+#RewriteRule (.*) http://localhost/copelender//$1 [R=301,L]
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+
+RewriteRule ^m/(.*)$ ./mm.php?id=$1
+RewriteRule ^i/(.*)$ ./invite.php?r=$1
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [NC,L]
+RewriteRule ^(\w+)$ ./mm.php?id=$1

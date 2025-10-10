@@ -4,7 +4,17 @@
 <?php 
 $pageTitle = 'Dashboard';
 require_once 'common/header.php'; 
+
 doCheckUserIsLoggedInAndRedirect('user', 'index');
+/**
+ * redirect user to verification page if user has not verified account upon login
+ */
+if (doTypeCastInt(getLoggedInUserDetailsByKey('active') == 0))
+{
+	header("Location: verification");
+    exit;
+}
+$module = DEF_MODULE_ID_DASHBOARD;
 ?>
 
 <body class="geex-dashboard demo-banking">

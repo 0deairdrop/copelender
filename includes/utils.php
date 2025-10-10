@@ -48,3 +48,9 @@ require_once DEF_DOC_ROOT.'includes/dbConnect.php';  // dbase connection
 require_once DEF_DOC_ROOT.'includes/defines.php'; // constants
 require_once DEF_DOC_ROOT.'includes/functions.php'; // functions
 require_once DEF_DOC_ROOT.'includes/defines.tables.php'; // table names
+
+// set user session
+if (isset($_SESSION['user']))
+{
+	$arGlobalUser = $_SESSION['user'];
+}

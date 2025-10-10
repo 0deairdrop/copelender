@@ -244,6 +244,15 @@ function generateUseReference($name)
   
   return $userId;
 }
+function generatePaymentReference() 
+{
+  // Create a unique numeric component using the current timestamp and a random number
+  $uniqueId = substr(time(), -4) . mt_rand(1000, 9999); // 4 digits from timestamp + 4 random digitsidentifier
+
+  $ref = "COPL-PY-" . $uniqueId;
+  
+  return $ref;
+}
 
 function generateVerificationCode($length = 6) 
 {
@@ -261,4 +270,43 @@ function generateVerificationCode($length = 6)
   return $code;
 }
 
+function getUserSessionFields()
+{
+  return ['id', 'firstname', 'lastname', 'email', 'password', 'isadmin', 'active', 'reference', 'username', 'profile_picture'];
+}
 
+
+function getLoggedInUserDetailsByKey($key='id')
+{
+  global $arGlobalUser;
+  if (empty($arGlobalUser))
+  {
+    $arGlobalUser = $_SESSION['user'];
+  }
+
+  if (array_key_exists($key, $arGlobalUser))
+  {
+    return $arGlobalUser[$key];
+  }
+  return '';
+  
+}
+
+function getFormattedDate($date, $format='')
+{
+  if ($date != '')
+  {
+    $format = !empty($format) ? $format : 'Y-m-d H:i';
+    return date($format, $date);
+  }
+  else
+  {
+    return '';
+  }
+}
+
+function formatDate($dateString, $format = 'Y-m-d H:i:s') 
+{
+  $date = new DateTime($dateString);
+  return $date->format($format);
+}

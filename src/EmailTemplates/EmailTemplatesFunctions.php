@@ -8,11 +8,12 @@ class EmailTemplatesFunctions
         $name = ucwords(strtolower($arParams['name'])) ?? '';
         $otp = $arParams['otp'] ?? '';
         $type = $arParams['type'] ?? '';
-        $planName = $arParams['planName'] ?? '';
-        $existingPlanName = $arParams['existingPlanName'] ?? '';
+        $status = $arParams['status'] ?? '';
         $amount = $arParams['amount'] ?? '';
         $subject = $arParams['subject'] ?? '';
         $date = $arParams['date'] ?? '';
+        $loanTitle = $arParams['loanTitle'] ?? '';
+        $reference = $arParams['reference'] ?? '';
         $otpSection = '';
 
         switch ($type)
@@ -38,30 +39,16 @@ class EmailTemplatesFunctions
                 $title = 'Welcome to the Big Family!';
             break;
 
-            case 'sucessfullsub':
-                $mainText = 'Congrtulations your Subscription to <b>'. $planName .'</b> is sucessull';
-                $subText = 'Keep Exploring'; 
-                $teamGreeting = 'All the best'; 
-                $title = $subject .' !';
-                break;
-            
-            case 'subupgrade':
-                //$mainText = 'Congratulations, your update from <b>'. $existingPlanName.'</b> to <b>' .$planName.'</b> is sucessfull';
-                $mainText = 'Congratulations, your upgrage <b>' .$planName.'</b> is sucessfull';
-                $subText = 'Keep Exploring'; 
-                $teamGreeting = 'All the best'; 
-                $title = $subject .' !';
-                break;
-
-            case 'subcancel':
-                $mainText = 'Whoops, we are sorry to inform you that your subscription to <b>'. $planName .'</b> has been cancelled .... more text as they likey';
-                $subText = 'Keep Exploring'; 
-                $teamGreeting = 'All the best'; 
+            case 'loan':
+                $mainText = 'You Loan your Application  of  <b>'. $amount .'</b> has been <b>' . $status .'</b>';
+                $subText = 'Please visit your profile for more info'; 
+                $teamGreeting = 'Best Wishes'; 
                 $title = $subject .' !';
                 break;
 
             case 'payment':
-                $mainText = 'Your payment of <b>'. $amount .'</b> has been recieved sucesfully, please check your profile for payment receipt';
+                $mainText = 'Your payment of <b>'. $amount .'</b> with reference <b>'. $reference .'</b>  against your Loan <b> [ '. $loanTitle .' ]</b>
+                , is sucessful on <b>'. $date .'</b> , Please check your profile for payment receipt';
                 $subText = 'Empowered to do more!'; 
                 $teamGreeting = 'All the best'; 
                 $title = $subject .' !';
@@ -75,8 +62,8 @@ class EmailTemplatesFunctions
                 break;    
 
             case 'paymentreminder':
-                $mainText = 'Your payment of <b>'. $amount .'</b> towards your subscription to  <b>'. $planName .'</b>  will be processed automatically on  <b>'. $date .'</b> 
-                please visit your profile to manage your subscription if you do not wish to renew';
+                $mainText = 'Your payment of <b>'. $amount .'</b> towards your Loan to  <b>'. $reference .'</b>  will be processed automatically on  <b>'. $date .'</b> 
+                please visit your profile to manage your applications';
                 $subText = 'Empowered to do more!'; 
                 $teamGreeting = 'All the best'; 
                 $title = $subject .' !';

@@ -654,6 +654,7 @@ class Crud
                 'where' => $arWhere
             ]
         );
+
         if ($rs)
         {
             return true;

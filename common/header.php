@@ -13,11 +13,6 @@ elseif (in_array(strtolower($pageTitle), ['verification']))
 {	
 	doCheckUserIsLoggedInAndRedirect('user', 'index');
 }
-
-if (isset($_SESSION['user']))
-{
-	$arGlobalUser = $_SESSION['user'];
-}
 ?>
 <head>
 	<meta charset="UTF-8">
@@ -33,7 +28,7 @@ if (isset($_SESSION['user']))
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="assets/css/style.css">
 	<!-- endinject -->
-	<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon.svg">
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/img/cope.jpg">
 	<!-- Fonts -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@iconscout/unicons@4.0.8/css/line.min.css">
 

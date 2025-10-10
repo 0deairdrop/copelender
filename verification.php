@@ -8,6 +8,7 @@ require_once 'common/header.php';
 
 $arUser = $_SESSION['user'];
 $email = $arUser['email'];
+$module = DEF_MODULE_ID_AUTH;
 ?>
 
 <body class="geex-dashboard authentication-page">
@@ -54,6 +55,7 @@ $email = $arUser['email'];
 
 	
 <script>
+var module = '<?= $module ?>';
 $(document).ready(function () {
     // Allow only numbers and auto-focus next input
     $(".geex-content__authentication__form-group__code input").on("input", function () {
@@ -76,7 +78,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "actions.php",
-            data: { action: "resend_code", email: $("input[name=email]").val() },
+            data: { action: "resend_code", email: $("input[name=email]").val(), moduleId: module },
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {

@@ -5,6 +5,7 @@
 $pageTitle = 'Register';
 $redirect = 'verification';
 require_once 'common/header.php';
+$module = DEF_MODULE_ID_AUTH;
 ?>
 
 <body class="geex-dashboard authentication-page">
@@ -52,7 +53,7 @@ require_once 'common/header.php';
 							<i class="uil-eye toggle-password-type"></i>
 						</div>
 						<div class="geex-content__authentication__form-group custom-checkbox">
-							<input type="checkbox" class="geex-content__authentication__checkbox-input" id="accept_terms">
+							<input type="checkbox" class="geex-content__authentication__checkbox-input" id="accept_terms "name="accept_terms">
 							<label class="geex-content__authentication__checkbox-label" for="accept_terms">By creating a account you agree to Our <a href="#">terms & conditions Privacy Policy</a></label>
 						</div>
 						<button type="submit" class="geex-content__authentication__form-submit">Sign Up</button>				

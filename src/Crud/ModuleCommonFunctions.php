@@ -21,73 +21,6 @@ class ModuleCommonFunctions
         // Return the difference in days
         return $interval->days;
     }
-    public static function invokeExtractMediaLinksFromFirebaseJson($arParams = [])
-    {
-        $arMedia = [];
-        if (count($arParams)  > 0)
-        {
-            foreach ($arParams as $fieldId => $jsonValue)
-            {
-                if (!empty($jsonValue))
-                {
-                    $ar = json_decode($jsonValue, true);
-                    if (count($ar) > 0)
-                    {
-                        $link = $ar['url'] ?? '';
-                    }
-                    $arMedia[$fieldId] = $link;
-                }
-            }
-        }
-        return $arMedia;
-    }
-
-    public static function invokeCalculateRecurringAmountByArParams($arParams=[])
-    {
-        $baseAmount = self::invokeGetValuesFromAraParams('base_amount', 0, $arParams);
-        $duration = self::invokeGetValuesFromAraParams('duration', 0, $arParams);
- 
-        return $baseAmount/$duration;
-    }  
-     
-    public static function invokeCalculateDurationAr($arParams=[])
-    {
-        $duration = self::invokeGetValuesFromAraParams('duration', 0, $arParams);
-        $durationCovered = self::invokeGetValuesFromAraParams('duration_covered', 0, $arParams);
-        $durationLeft = self::invokeGetValuesFromAraParams('duration_left', 0, $arParams);
-
-        if ($duration > 0)
-        {
-            if ($durationCovered > 0)
-            {
-                $durationLeft = $duration - $durationCovered;
-            }
-            else
-            {
-                $durationLeft = $duration;
-            }
-        }
-        else
-        {
-            $duration = $durationCovered + $durationLeft;
-        }
-
-        return [
-              'duration' => doTypeCastDouble($duration)
-           ,  'duration_covered' => doTypeCastDouble($durationCovered)
-           ,  'duration_left' => doTypeCastDouble($durationLeft)
-        ];
-    }
-
-    protected static function invokeGetValuesFromAraParams($key, $defaultValue, $arParams=[])
-    {
-        if (empty($arParams))
-        {
-            $arParams = self::$arParams;
-        }
-
-        return array_key_exists($key, $arParams) ? $arParams[$key] : $defaultValue; 
-    }
 
     public static function doCommonModuleDataValidation($arParams=[])
     {
@@ -152,5 +85,5 @@ class ModuleCommonFunctions
     {
         $date = new DateTime();  
         return  doTypeCastInt($date->format('t')); 
-    } 
+    }
 }
