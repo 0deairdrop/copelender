@@ -6,7 +6,7 @@ use Src\Crud\Crud;
 class LoanTransactionsFunctions
 {    
     public static $record;
-    public static $moduleId;
+    public static $moduleId = DEF_MODULE_ID_LOAN;
     public static $cuserId;
     public static $cdate;
     public static $reference;
@@ -109,6 +109,32 @@ class LoanTransactionsFunctions
             // update total amount paid
             LoanApplicationFunctions::invokeUpdateTotalLoanAmountPaid(
                 self::$record
+            );
+        }
+    }    
+    
+    public static function invokeLogLoanDisbursement($rs=[])
+    {
+        if (count($rs) > 0)
+        {
+            $amount = doTypeCastDouble($rs['amount']);
+            $data = [
+                    'id' => generateNewId()
+                , 'parent_id' => $rs['id'] // loan id
+                , 'record_item_id' => null
+                , 'amount' => $amount // amount
+                , 'module_id' => self::$moduleId // module id
+                , 'status' => 'paid'
+                , 'tdate' => self::$cdate
+                , 'cdate' => self::$cdate
+                , 'cuser' => self::$cuserId
+                , 'user_id' => $rs['parent_id']
+                , 'debit_credit' => 1
+                , 'reference' =>  generatePaymentReference()
+            ];
+
+            Crud::insert(
+                self::$table, $data
             );
         }
     }

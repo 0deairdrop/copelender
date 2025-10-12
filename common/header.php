@@ -28,7 +28,7 @@ elseif (in_array(strtolower($pageTitle), ['verification']))
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="assets/css/style.css">
 	<!-- endinject -->
-	<link rel="icon" type="image/png" sizes="16x16" href="assets/img/cope.jpg">
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/img/cope2.png">
 	<!-- Fonts -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@iconscout/unicons@4.0.8/css/line.min.css">
 
@@ -38,8 +38,8 @@ elseif (in_array(strtolower($pageTitle), ['verification']))
 	<link rel="stylesheet" href="assets/plugins/toastr/toastr.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-	
-    <script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script>	
 		// Render localStorage JS:
 		if (localStorage.theme) document.documentElement.setAttribute("data-theme", localStorage.theme);
 		if (localStorage.layout) document.documentElement.setAttribute("data-nav", localStorage.navbar);

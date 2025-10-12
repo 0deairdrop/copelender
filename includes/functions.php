@@ -310,3 +310,8 @@ function formatDate($dateString, $format = 'Y-m-d H:i:s')
   $date = new DateTime($dateString);
   return $date->format($format);
 }
+
+function doTextDateFormating($date)
+{
+  return date("F jS, Y \a\\t g:i A", strtotime($date));
+}

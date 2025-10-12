@@ -266,6 +266,7 @@ class LoanApplicationFunctions
                 LoanTransactionsFunctions::$record = $rs['parent_id'];
                 LoanTransactionsFunctions::$cdate = self::$cdate;
                 LoanTransactionsFunctions::$cuserId = self::$cuserId;
+                LoanTransactionsFunctions::$moduleId = DEF_MODULE_ID_LOAN;
                 LoanTransactionsFunctions::invokeLogLoanRepayment($rs);
                 $reference = LoanTransactionsFunctions::$reference;
 
@@ -469,5 +470,19 @@ class LoanApplicationFunctions
     public static function invokeSendRecurringPaymentReminder($ar=[])
     {
 
+    }
+
+    public static function getLoanName($record)
+    {
+        if (strlen($record) == 36)
+        {
+            $rs = self::getLoanInfo($record, ['name']);
+
+            if ($rs)
+            {
+                return $rs['name'];
+            }
+        }
+        return '';
     }
 }

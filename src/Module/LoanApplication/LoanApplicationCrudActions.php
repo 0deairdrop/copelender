@@ -274,7 +274,8 @@ class LoanApplicationCrudActions
     private function doLoanApprovalProcess()
     {
         $rs = LoanApplicationFunctions::getLoanInfo(
-            $this->record, ['recurring_amount', 'status', 'approved', 'duration', 'repayment_type']
+            $this->record
+            , ['id', 'recurring_amount', 'status', 'approved', 'duration', 'repayment_type', 'amount', 'parent_id']
         );
 
         if ($rs)
@@ -323,6 +324,16 @@ class LoanApplicationCrudActions
                         $dataLoans,
                         ['id' => $this->record]
                     );
+
+                    // log into  transactions table
+                    LoanTransactionsFunctions::$moduleId = $this->moduleId;
+                    LoanTransactionsFunctions::$cdate = $this->cdate;
+                    LoanTransactionsFunctions::$cuserId = $this->cuserId;
+                    LoanTransactionsFunctions::invokeLogLoanDisbursement([
+                         'amount' => $rs['amount']
+                       , 'parent_id' => $rs['parent_id']
+                       , 'id' => $rs['id']
+                    ]);
 
                     LoanApplicationFunctions::invokeSendLoanActionEmail(
                         'approved', $this->record

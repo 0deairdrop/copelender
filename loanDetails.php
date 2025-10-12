@@ -12,7 +12,7 @@ if (strlen($id) != 36)
    header("Location: loanApplication");
     exit;
 }
-$isAdmin = doTypeCastInt(getLoggedInUserDetailsByKey('isadmin'));;
+$isAdmin = doTypeCastInt(getLoggedInUserDetailsByKey('isadmin'));
 $rs = Src\Module\LoanApplication\LoanApplicationFunctions::invokeGetLoanItems($id);
 $rsx = Src\Module\LoanApplication\LoanApplicationFunctions::getLoanInfo($id, ['name']);
 $name = $rsx['name'];

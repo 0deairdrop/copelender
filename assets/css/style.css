@@ -3635,7 +3635,7 @@ blockquote span:before {
 }
 
 .geex-content__transaction .transaction-content .transaction-type__single__content__title {
-  font-size: 21px;
+  font-size: 12px;
   line-height: 32px;
   font-weight: 500;
   margin-bottom: 8px;
@@ -3644,7 +3644,7 @@ blockquote span:before {
 
 @media only screen and (max-width: 1600px) {
   .geex-content__transaction .transaction-content .transaction-type__single__content__title {
-    font-size: 18px;
+    font-size: 12px;
     line-height: 25px;
   }
 }
@@ -8024,6 +8024,18 @@ blockquote span:before {
 
 .geex-content__widget__single__progress.info .geex-content__widget__single__progressbar__inner {
   background-color: var(--info-color);
+}
+
+.geex-content__widget__single__progress.danger .geex-content__widget__single__progress__icon {
+  background-color: var(--danger-color-transparent);
+}
+
+.geex-content__widget__single__progress.danger .geex-content__widget__single__progress__icon i {
+  color: var(--danger-color);
+}
+
+.geex-content__widget__single__progress.danger .geex-content__widget__single__progressbar__inner {
+  background-color: var(--danger-color);
 }
 
 .geex-content__widget__single__progressbar {
