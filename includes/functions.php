@@ -315,3 +315,11 @@ function doTextDateFormating($date)
 {
   return date("F jS, Y \a\\t g:i A", strtotime($date));
 }
+
+function limitWords($text, $limit = 50) 
+{
+    $words = str_word_count($text, 1);
+    return count($words) > $limit
+        ? implode(' ', array_slice($words, 0, $limit)) . '...'
+        : $text;
+}

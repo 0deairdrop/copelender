@@ -181,7 +181,7 @@ class UserFunctions
 
     public static function getUserInfo($id, $arField=['*'])
     {
-         $rs = Crud::select(
+        $rs = Crud::select(
             self::$table,
             [
                 'columns' => $arField,
@@ -196,6 +196,44 @@ class UserFunctions
         if ($rs)
         {
             return $rs;
+        }
+
+        return [];
+    }
+
+    public static function getUserFullName($record)
+    {   
+        if (strlen($record) == 36)
+        {
+            $rs = self::getUserInfo($record, ['firstname', 'lastname']);
+
+            if ($rs)
+            {
+                return ucwords($rs['firstname']) . ' '. ucwords($rs['lastname']);
+            }
+        }  
+        return '';
+    }
+
+    public static function getAllUserInfoByStatus($arField=['*'], $dbField='is_eligible', $value=0)
+    {
+        if (strlen($value) > 0)
+        {
+            $rs = Crud::select(
+                self::$table,
+                [
+                    'columns' => $arField,
+                    'where' => [
+                         $dbField => $value
+                        , 'deleted' => 0
+                    ]
+                ]
+            );
+
+            if ($rs)
+            {
+                return $rs;
+            }
         }
 
         return [];

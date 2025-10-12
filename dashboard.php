@@ -15,14 +15,19 @@ if (doTypeCastInt(getLoggedInUserDetailsByKey('active') == 0))
     exit;
 }
 $module = DEF_MODULE_ID_DASHBOARD;
-
-$rs = Src\Module\Dashboard\DashboardFunctions::getUserDashboardData();
+$isAdmin = doTypeCastInt(getLoggedInUserDetailsByKey('isadmin'));
+if ($isAdmin)
+{
+	header("Location: admindashboard");
+    exit;
+}
+use Src\Module\Dashboard\DashboardFunctions;
+$rs = DashboardFunctions::getUserDashboardData();
 ?>
 
 <body class="geex-dashboard demo-banking">
 
 <main class="geex-main-content">
-	
  <!-- menu  -->	
 <?php require_once 'common/menu.php'; ?>
 

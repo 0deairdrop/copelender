@@ -3,6 +3,7 @@ namespace Src\Module\Dashboard;
 
 use Src\Crud\Crud;
 use Src\Module\LoanApplication\LoanApplicationFunctions;
+use Src\Module\User\UserFunctions;
 
 class DashboardFunctions
 { 
@@ -14,18 +15,112 @@ class DashboardFunctions
     public static $limit = 10;
     public static function getUserDashboardData($isAdmin=false)
     {
-        if (!$isAdmin)
+        if ($isAdmin)
         {
-            self::$userId = getLoggedInUserDetailsByKey();
+            return self::invokeGetAdminDashbaordData();
         }
+        else
+        {
+            return self::invokeGetUserDashabordData();
+        }
+    }
 
+    public static function invokeGetAdminDashbaordData()
+    {
+        self::$userId = getLoggedInUserDetailsByKey();
         self::getQueryCondition();
 
         return [
               'arTransactions' => self::getAllUserTransactions()
             , 'arProgress' => self::getUserLoansProgress()
             , 'arDashboardCount' => self::getUserDashboardCount()
+            , 'arActivationRequest' => self::getAllUnAppovedUsers()
+            , 'arGraphs' => self::getAdminDashBoardGraphs()
+            , 'arLoanData' => [
+                'arApprovedLoans' => self::invokeGetAdminLoanData('approved')
+                , 'arPendingLoans' => self::invokeGetAdminLoanData()
+            ]
         ];
+    }
+
+    public static function invokeGetUserDashabordData()
+    {
+        self::getQueryCondition();
+        return [
+              'arTransactions' => self::getAllUserTransactions()
+            , 'arProgress' => self::getUserLoansProgress()
+            , 'arDashboardCount' => self::getUserDashboardCount()
+        ];
+    }
+
+    public static function getAdminDashBoardGraphs()
+    {
+        return [];
+    }
+
+    public static function invokeGetAdminLoanData($status='pending', $order='cdate')
+    {
+        $arWhere = [
+             'status' => $status
+            , 'deleted' => 0
+        ];
+
+        $arParams =  [
+            'columns' => ['id',  'parent_id', 'amount', 'cdate', 'repayment_type', 'purpose'],
+            'where' =>$arWhere,
+            'limit' => self::$limit,
+            'order' => $order,
+            'greaterthan' => ['cdate' => date('Y-m-d', strtotime('-90 days'))]
+        ];
+
+        $rs = Crud::select(
+            self::$tableLoans, $arParams 
+        );  
+
+        $rows = [];
+        if ($rs)
+        {
+            $arUsers = [];
+            foreach ($rs as $r)
+            {
+                $userId = $r['parent_id'];
+                if (!in_array($userId, $arUsers))
+                {
+                    $arUsers[$userId] = UserFunctions::getUserFullName($userId);
+                }
+                $rows[] = [
+                      'id' => $r['id']
+                    , 'amount' => doNumberFormat($r['amount'])
+                    , 'cdate' => doTextDateFormating($r['cdate'])
+                    , 'repayment_type' => $r['repayment_type']
+                    , 'purpose' => limitWords($r['purpose'], 30)
+                    , 'user' =>  $arUsers[$userId]
+                ];
+            }
+        }
+        return  $rows;
+    }
+
+    protected static function getAllUnAppovedUsers()
+    {
+        $rs = UserFunctions::getAllUserInfoByStatus(
+            ['id','reference', 'firstname', 'lastname'],'is_eligible', 0
+        );
+
+        $rows = [];
+        if (count($rs) > 0)
+        {
+            foreach ($rs as $r)
+            {
+                $rows[] = [
+                     'id' => $r['id']
+                    , 'name' => ucwords($r['firstname'] . ' '.$r['lastname'] )
+                    , 'reference' => $r['reference']
+                ];
+            }
+        }
+
+        return $rows;
     }
 
     public static function getAllUserTransactions()
@@ -214,9 +309,11 @@ class DashboardFunctions
 
     protected static function getDashboardCount($table, $arFields, $groupBy='')
     {
+        $arWhere = self::$arWhere;
+        $arWhere['approved'] = 1;
         $arFetchParams = [
              'sum' => $arFields,
-             'where' => self::$arWhere
+             'where' => $arWhere
             ,'returnType' => 'row'
             ,'whereNotIn' => ['status' => ['rejected']]
         ];

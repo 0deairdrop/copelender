@@ -9,11 +9,11 @@ require_once 'common/header.php';
 <main class="geex-main-content">
 <?php 
 require_once 'common/menu.php';
-
+$isAdmin = doTypeCastInt(getLoggedInUserDetailsByKey('isadmin'));
 use Src\Module\Dashboard\DashboardFunctions;
 DashboardFunctions::getQueryCondition();
 DashboardFunctions::$limit = 0;
-if (!doTypeCastInt(getLoggedInUserDetailsByKey('isadmin')))
+if (!$isAdmin)
 {
 	DashboardFunctions::$userId = getLoggedInUserDetailsByKey();
 }

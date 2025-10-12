@@ -344,8 +344,8 @@ class LoanApplicationFunctions
             {
                 $dataLoans = [
                       'status' => 'closed'
-                    , 'mdate' => self::$cuserId
-                    , 'muser' => self::$cdate
+                    , 'mdate' => self::$cdate
+                    , 'muser' => self::$cuserId
                 ];
 
                 Crud::update(

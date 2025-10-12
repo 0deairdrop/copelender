@@ -315,8 +315,8 @@ class LoanApplicationCrudActions
                         , 'approved_by' => $this->cuserId
                         , 'approved_date' => $this->cdate
                         , 'expected_closing_date' => $arLoanRepayment[$numEntries-1]
-                        , 'mdate' => $this->cuserId
-                        , 'muser' => $this->cdate
+                        , 'mdate' => $this->cdate
+                        , 'muser' => $this->cuserId
                     ];
 
                     Crud::update(
@@ -374,8 +374,8 @@ class LoanApplicationCrudActions
                       'status' => 'rejected'
                     , 'approved' => 3
                     , 'reject_reason' => 'Rejected by admin'
-                    , 'mdate' => $this->cuserId
-                    , 'muser' => $this->cdate
+                    , 'mdate' => $this->cdate
+                    , 'muser' => $this->cuserId
                 ];
 
                 Crud::update(
@@ -425,8 +425,8 @@ class LoanApplicationCrudActions
             {
                 $dataLoans = [
                       'status' => 'closed'
-                    , 'mdate' => $this->cuserId
-                    , 'muser' => $this->cdate
+                    , 'mdate' => $this->cdate
+                    , 'muser' => $this->cuserId
                 ];
 
                 Crud::update(
@@ -470,8 +470,8 @@ class LoanApplicationCrudActions
 
             $dataLoans = [
                   'status' => 'completed'
-                , 'mdate' => $this->cuserId
-                , 'muser' => $this->cdate
+                , 'mdate' => $this->cdate
+                , 'muser' => $this->cuserId
             ];
 
             Crud::update(
@@ -511,8 +511,8 @@ class LoanApplicationCrudActions
                 $dataLoans = [
                       'status' => 'cancelled'
                     , 'approved' => 4
-                    , 'mdate' => $this->cuserId
-                    , 'muser' => $this->cdate
+                    , 'mdate' => $this->cdate
+                    , 'muser' => $this->cuserId
                 ];
 
                 Crud::update(

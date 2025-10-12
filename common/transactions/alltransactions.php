@@ -9,14 +9,31 @@ $arAllTransactions = $rs['arTransactions']['arTransactions'];
             foreach ($arAllTransactions as $allTransactions)
             {
                 $debitCredit = $allTransactions['debit_credit'];
-                $class = 'decrement';
-                $sign  = '- NGN';
-                $arrow  = 'down';
-                if ($debitCredit)
+
+                if ($isAdmin)
                 {
                     $class = 'increment';
-                    $sign  = '+ NGN';
-                    $arrow  = 'up';
+                        $sign  = '+ NGN';
+                        $arrow  = 'up';
+                
+                    if ($debitCredit)
+                    {
+                        $class = 'decrement';
+                        $sign  = '- NGN';
+                        $arrow  = 'down';
+                    }
+                }
+                else
+                {
+                    $class = 'decrement';
+                    $sign  = '- NGN';
+                    $arrow  = 'down';
+                    if ($debitCredit)
+                    {
+                        $class = 'increment';
+                        $sign  = '+ NGN';
+                        $arrow  = 'up';
+                    }
                 }
         ?>      
                 <div class="transaction-type__single <?= $class ?>">

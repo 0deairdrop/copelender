@@ -27,6 +27,7 @@ elseif (in_array(strtolower($pageTitle), ['verification']))
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.27.0/dist/apexcharts.min.css">
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="assets/css/style.css">
+	
 	<!-- endinject -->
 	<link rel="icon" type="image/png" sizes="16x16" href="assets/img/cope2.png">
 	<!-- Fonts -->
@@ -39,6 +40,13 @@ elseif (in_array(strtolower($pageTitle), ['verification']))
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    
+    <!-- endinject -->
+   
+    <!-- Fonts -->
     <script>	
 		// Render localStorage JS:
 		if (localStorage.theme) document.documentElement.setAttribute("data-theme", localStorage.theme);
