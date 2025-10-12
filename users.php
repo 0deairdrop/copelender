@@ -1,8 +1,15 @@
 <?php
-$pageTitle = 'Customer Management';
+$pageTitle = 'User Management';
 require_once 'common/header.php';
-$module = DEF_MODULE_ID_LOAN_APPLICATION;
+use Src\Module\User\UserFunctions;
+$moduleId = DEF_MODULE_ID_LOAN_APPLICATION;
 $userid = getLoggedInUserDetailsByKey('id');
+
+$rs = UserFunctions::getAllUsersInfo([
+    'id'
+    , 'reference' , 'firstname', 'lastname', 'phone_number' , 'email', 'is_eligible'
+    ,'active', 'isadmin'
+]);
 ?>
 <body class="geex-dashboard">
 <main class="geex-main-content">
@@ -15,29 +22,124 @@ $userid = getLoggedInUserDetailsByKey('id');
                 <p class="geex-content__header__subtitle">Register and manage customer profiles</p>
             </div>
             <div class="geex-content__header__action">
-                <button type="button" class="geex-btn geex-btn--primary" id="addCustomerBtn">+ Add Customer</button>
+                <button type="button" class="geex-btn geex-btn--primary" id="addCustomerBtn">+ Add User</button>
             </div>
         </div>
-
         <div class="geex-content__section geex-content__form table-responsive">
-            <h3 class="mb-3">Customer List</h3>
-            <table class="table-reviews-geex-1 table table-striped">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Contact</th>
-                    <th>National ID</th>
-                    <th>Income</th>
-                    <th>Credit Score</th>
-                    <th>Edit</th>
-                </tr>
-                </thead>
-                <tbody id="customerList">
-                <tr><td colspan="7" style="text-align:center;">No customers found</td></tr>
-                </tbody>
-            </table>
-        </div>
+                <table class="table-reviews-geex-1">
+                    <thead>
+                        <tr style="width: 100%;">
+                            <th style="width: 3%;">#</th>
+                            <th style="width: 20%;">Reference</th>
+                            <th style="width: 20%;">First Name</th>
+                            <th style="width: 20%;">Last Name</th>
+                            <th style="width: 20%;">Email</th>
+                            <th style="width: 20%;">Phone Number</th>
+                            <th style="width: 20%;">Admin</th>
+                            <th style="width: 10%;"></th>
+                            <th style="width: 10%;"></th>
+                            <th style="width: 10%;"></th>
+                        </tr>
+                    </thead>
+					<tbody>
+					<?php 
+					$i = 0;
+					if (count($rs) > 0) 
+					{ 
+						foreach ($rs as $r) 
+						{
+                            
+							$id = $r['id'];
+							$reference = $r['reference'];
+							$firstname =  $r['firstname'];
+							$lastname =  $r['lastname'];
+							$phoneNumber  =  $r['phone_number'];
+							$email = $r['email'];
+							$isEligible = $r['is_eligible'];
+							$active = $r['active'];
+                            $isAdmin = $r['isadmin'];
+
+                            $admin = 'NO';
+                            if ($isAdmin)
+                            {
+                                $admin = 'YES';
+                            }
+							$i++;
+					?>
+						<tr data-id="<?= $id ?>">
+							<td>
+								<span class="name"><?= $i ?></span>
+							</td>
+							<td>
+								<div class="author-area">
+									<p>
+										<a href="<?= DEF_ROOT_PATH ?>/profiledetails?id=<?= $id ?>" style="color: #2c7be5; font-weight: 600; text-decoration: none;">
+											<?= htmlspecialchars($reference) ?>
+										</a>
+									</p>
+								</div>
+							</td>
+							<td>
+								<div class="author-area">
+									<p>
+										<a href="<?= DEF_ROOT_PATH ?>/profiledetails?id=<?= $id ?>" style="color: #2c7be5; font-weight: 600; text-decoration: none;">
+											<?= htmlspecialchars($firstname) ?>
+										</a>
+									</p>
+								</div>
+							</td>
+							<td>
+								<div class="author-area">
+									<p>
+										<a href="<?= DEF_ROOT_PATH ?>/profiledetails?id=<?= $id ?>" style="color: #2c7be5; font-weight: 600; text-decoration: none;">
+											<?= htmlspecialchars($lastname) ?>
+										</a>
+									</p>
+								</div>
+							</td>
+							<td><span><?= $email ?></span></td>
+							<td><span><?= $phoneNumber  ?></span></td>
+							<td><span><?= $admin  ?></span></td>
+
+							<?php if ($isAdmin) {?>
+								<td>
+									<button type="button" class="geex-btn geex-btn--primary" onclick="downgradeUser(
+									'<?= $id ?>', '<?= $name ?>', '<?= $amount ?>', '<?= $totalAmount ?>', '<?= $duration ?>', '<?= strtolower($repaymentType) ?>', '<?= $purpose ?>')">
+										Downgrade
+									</button>
+								</td>
+								
+							<?php 
+							} 
+							else
+							{
+							?>
+                                <td>
+									<button type="button" class="geex-btn geex-btn--danger" onclick="deactiavet('<?= $id ?>')">
+										Deactivate
+									</button>
+								</td>
+								<td>
+									<button type="button" class="geex-btn geex-btn--success" onclick="upgradeToAdmin('<?= $id ?>')">
+										Upgrade
+									</button>
+								</td>
+							<?php } ?>
+						</tr>
+					<?php 
+					} 
+						} 
+					else 
+					{ ?>
+					<tr>
+						<td colspan="9" style="text-align:center;">No records found</td>
+					</tr>
+					<?php } ?>
+				</tbody>
+
+                </table>
+		</div>
+        
     </div>
 </main>
 
@@ -280,89 +382,6 @@ $(function(){
             }
         });
     });
-
-    // load & render customers
-    function loadCustomers(forceRefresh, highlightId){
-        $.getJSON('actions', {action: 'getCustomers', moduleId: '<?= $module ?>'}, function(res){
-            const tbody = $('#customerList');
-            tbody.empty();
-            if(res.status === 'success' && Array.isArray(res.data) && res.data.length){
-                res.data.forEach(function(c, i){
-                    const income = c.monthlyIncome ? '₦'+Number(c.monthlyIncome).toLocaleString() : '-';
-                    const cid = c.id || '';
-                    // Edit button (passes customer id)
-                    const editBtn = `<button class="geex-btn geex-btn--outline-primary btn-edit" data-id="${cid}">Edit</button>`;
-                    tbody.append(`<tr data-id="${cid}">
-                        <td>${i+1}</td>
-                        <td>${(c.firstName||'') + ' ' + (c.lastName||'')}</td>
-                        <td>${(c.countryCode||'') + ' ' + (c.phone||'')}</td>
-                        <td>${c.nationalId || '-'}</td>
-                        <td>${income}</td>
-                        <td>${c.creditScore || '-'}</td>
-                        <td>${editBtn}</td>
-                    </tr>`);
-                });
-                if(highlightId){
-                    const $row = $(`#customerList tr[data-id="${highlightId}"]`);
-                    if($row.length){
-                        $row.addClass('table-success');
-                        setTimeout(()=> $row.removeClass('table-success'), 2200);
-                    }
-                }
-            } else {
-                tbody.append('<tr><td colspan="7" class="text-center">No customers found</td></tr>');
-            }
-        }).fail(function(){
-            $('#customerList').html('<tr><td colspan="7" class="text-center">Error loading data</td></tr>');
-        });
-    }
-
-    // edit click (delegated)
-    $(document).on('click', '.btn-edit', function(){
-        const id = $(this).data('id');
-        if(!id) return;
-        // fetch a single customer record (ideally actions?action=getCustomer&id=...), fallback to the getCustomers list
-        // first try a dedicated endpoint
-        $.getJSON('actions', {action: 'getCustomer', id: id, moduleId: '<?= $module ?>'}, function(res){
-            if(res.status === 'success' && res.data){
-                fillFormForEdit(res.data);
-            } else {
-                // fallback: fetch full list and find id
-                $.getJSON('actions', {action: 'getCustomers', moduleId: '<?= $module ?>'}, function(listRes){
-                    if(listRes.status === 'success' && Array.isArray(listRes.data)){
-                        const record = listRes.data.find(r => r.id === id);
-                        if(record) fillFormForEdit(record);
-                        else throwWarning('Record not found', 'toast-top-right');
-                    } else {
-                        throwWarning('Unable to load record', 'toast-top-right');
-                    }
-                });
-            }
-        }).fail(function(){
-            throwWarning('Unable to load record', 'toast-top-right');
-        });
-    });
-
-    function fillFormForEdit(data){
-        setMode('edit');
-        restoreFormState();
-        const f = $('#customerForm')[0];
-        $('input[name="customerId"]').val(data.id || '');
-        $('input[name="firstName"]').val(data.firstName || '');
-        $('input[name="lastName"]').val(data.lastName || '');
-        $('input[name="email"]').val(data.email || '');
-        $('select[name="countryCode"]').val(data.countryCode || '+234');
-        $('input[name="phone"]').val(data.phone || '');
-        $('input[name="nationalId"]').val(data.nationalId || '');
-        $('input[name="occupation"]').val(data.occupation || '');
-        $('textarea[name="address"]').val(data.address || '');
-        $('input[name="monthlyIncome"]').val(data.monthlyIncome || '');
-        $('input[name="creditScore"]').val(data.creditScore || '');
-        customerModal.show();
-    }
-
-    // initial load
-    loadCustomers();
 });
 </script>
 

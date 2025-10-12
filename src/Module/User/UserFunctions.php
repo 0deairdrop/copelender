@@ -238,4 +238,25 @@ class UserFunctions
 
         return [];
     }
+
+    public static function getAllUsersInfo($arField=['*'])
+    {
+        $rs = Crud::select(
+            self::$table,
+            [
+                'columns' => $arField,
+                'where' => [
+                     'deleted' => 0
+                ]
+
+            ]
+        );
+
+        if ($rs)
+        {
+            return $rs;
+        }
+
+        return [];
+    }
 }

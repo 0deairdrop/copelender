@@ -17,19 +17,17 @@ class DashboardFunctions
     {
         if ($isAdmin)
         {
-            return self::invokeGetAdminDashbaordData();
+            return self::invokeGetAdminDashboarddData();
         }
         else
         {
-            return self::invokeGetUserDashabordData();
+            return self::invokeGetUserDashboardData();
         }
     }
 
-    public static function invokeGetAdminDashbaordData()
+    public static function invokeGetAdminDashboarddData()
     {
-        self::$userId = getLoggedInUserDetailsByKey();
         self::getQueryCondition();
-
         return [
               'arTransactions' => self::getAllUserTransactions()
             , 'arProgress' => self::getUserLoansProgress()
@@ -43,8 +41,9 @@ class DashboardFunctions
         ];
     }
 
-    public static function invokeGetUserDashabordData()
+    public static function invokeGetUserDashboardData()
     {
+        self::$userId = getLoggedInUserDetailsByKey();
         self::getQueryCondition();
         return [
               'arTransactions' => self::getAllUserTransactions()
@@ -290,7 +289,7 @@ class DashboardFunctions
         $rsLoans = self::getDashboardCount(
             self::$tableLoans, ['total_amount' => 'totalLoanAmount', 'total_amount_paid' => 'totalAmountPaid']
         );
-
+        
         $totalLoanAmount = $totalAmountPaid = $totalAmountLeft = 0;
 
         if ($rsLoans > 0)

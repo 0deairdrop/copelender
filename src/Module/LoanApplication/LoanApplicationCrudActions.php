@@ -275,7 +275,7 @@ class LoanApplicationCrudActions
     {
         $rs = LoanApplicationFunctions::getLoanInfo(
             $this->record
-            , ['id', 'recurring_amount', 'status', 'approved', 'duration', 'repayment_type', 'amount', 'parent_id']
+            , ['id', 'recurring_amount', 'status', 'approved', 'duration', 'repayment_type', 'amount', 'parent_id', 'cuser']
         );
 
         if ($rs)
@@ -299,7 +299,7 @@ class LoanApplicationCrudActions
                             ,'amount' => $amount
                             ,'payment_due_date' => $arLoanRepayment[$i]
                             ,'cdate' => $this->cdate
-                            ,'cuser' => $this->cuserId
+                            ,'cuser' => $rs['cuser'] // push loan user id
                             ,'rank' => $i + 1
                         ];
              

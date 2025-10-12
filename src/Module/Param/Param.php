@@ -265,25 +265,120 @@ class Param
                         'label' => 'Last Name',
                         'required' => true,
                         'type' => 'string'
-                    ],
-                    'isadmin' => [
+                    ],   
+                    
+                    'phone_number' => [
                         'method' => 'post',
-                        'length' => [1,1],
-                        'label' => 'Role',
-                        'required' => false
-                    ],
-                    'isactive' => [
-                        'method' => 'post',
-                        'length' => [1,1],
-                        'label' => 'Role',
-                        'required' => false
+                        'length' => [3,100],
+                        'label' => 'Phone Name',
+                        'required' => true,
+                        'type' => 'string'
                     ],  
-                    'profile_picture' => [
+                    
+                    'dob' => [
                         'method' => 'post',
-                        'length' => [0,1000],
-                        'label' => 'Profile Picture',
-                        'required' => false
+                        'length' => [3,100],
+                        'label' => 'Date of Birth',
+                        'required' => true,
+                        'type' => 'string'
+                    ],    
+                    
+                    'occupation' => [
+                        'method' => 'post',
+                        'length' => [3,100],
+                        'label' => 'Occupation',
+                        'required' => true,
+                        'type' => 'string'
+                    ], 
+                    
+                    'montly_income' => [
+                        'method' => 'post',
+                        'length' => [1,100],
+                        'label' => 'Monthly Income',
+                        'required' => true,
+                        'type' => 'number'
                     ],
+                     
+                    'bank_name' => [
+                        'method' => 'post',
+                        'length' => [3,100],
+                        'label' => 'Bank Names',
+                        'required' => true,
+                        'type' => 'string'
+                    ],    
+                    
+                    'bank_account_holder_name' => [
+                        'method' => 'post',
+                        'length' => [3,100],
+                        'label' => 'Bank Account Holder Name',
+                        'required' => true,
+                        'type' => 'string'
+                    ],    
+                    
+                    'account_number' => [
+                        'method' => 'post',
+                        'length' => [3,100],
+                        'label' => 'Account Number',
+                        'required' => true,
+                        'type' => 'string'
+                    ],  
+                    
+                    'national_id' => [
+                        'method' => 'post',
+                        'length' => [3,100],
+                        'label' => 'Naitonal Id',
+                        'required' => true,
+                        'type' => 'string'
+                    ],   
+                    
+                    'identification' => [
+                        'method' => 'post',
+                        'length' => [3,100],
+                        'label' => 'Identification',
+                        'required' => true,
+                        'type' => 'string'
+                    ],  
+                    
+                    'address' => [
+                        'method' => 'post',
+                        'length' => [3,100],
+                        'label' => 'Street',
+                        'required' => true,
+                        'type' => 'string'
+                    ],  
+                    
+                    'city' => [
+                        'method' => 'post',
+                        'length' => [3,100],
+                        'label' => 'City',
+                        'required' => true,
+                        'type' => 'string'
+                    ],   
+                    
+                    'state' => [
+                        'method' => 'post',
+                        'length' => [3,100],
+                        'label' => 'State',
+                        'required' => true,
+                        'type' => 'string'
+                    ],     
+                    
+                    'country' => [
+                        'method' => 'post',
+                        'length' => [3,100],
+                        'label' => 'Country',
+                        'required' => true,
+                        'type' => 'string'
+                    ],    
+                    
+                    'postal' => [
+                        'method' => 'post',
+                        'length' => [3,100],
+                        'label' => 'Postal',
+                        'required' => true,
+                        'type' => 'string'
+                    ],
+                    
                 ];
             break;
         }

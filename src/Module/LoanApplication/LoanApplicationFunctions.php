@@ -205,6 +205,7 @@ class LoanApplicationFunctions
                     'sum' => ['amount' => 'totalAmount'],
                     'where' => [
                         'parent_id' => $record
+                        , 'debit_credit' => 0
                         , 'deleted' => 0
                     ]
                     ,'returnType' => 'row'

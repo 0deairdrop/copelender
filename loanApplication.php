@@ -1,11 +1,21 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 
-<?php 
+<?php
+
 $pageTitle = 'Loan Application';
 require_once 'common/header.php'; 
 $module = DEF_MODULE_ID_LOAN_APPLICATION;
 $rs = Src\Module\LoanApplication\LoanApplicationFunctions::invokeGetUserLoans();
+
+
+$rsxUser = Src\Module\User\UserFunctions::getUserInfo(
+	getLoggedInUserDetailsByKey() , ['is_eligible']
+);
+if ($rsxUser)
+{
+	$allowToLoan = doTypeCastInt($rsxUser['is_eligible']);
+}
 $redirect = 'loanApplication';
 ?>
 
@@ -25,11 +35,19 @@ $redirect = 'loanApplication';
 					<?php require_once 'common/userProfileSection.php'; ?>
 				</div>
 			</div>
+		
 			<div class="geex-content__invoice">
 				<div class="geex-content__invoice__list">
 					<div class="geex-content__todo__header">
 						<div class="geex-content__todo__header__title">
-							<button class="geex-btn geex-btn--primary geex-btn__add-modal"><i class="uil-plus"></i> New Loan Application</button>
+						<?php if ($allowToLoan) { ?>
+								<button class="geex-btn geex-btn--primary geex-btn__add-modal"><i class="uil-plus"></i> New Loan Application</button>
+						<?php } 
+						else
+							{
+						?>	
+							<text class="geex-btn geex-btn--danger "></i>Loan Facility Unavailable, Account Verification In Progress</text>
+						<?php } ?>
 						</div>
 					</div>
 				</div>

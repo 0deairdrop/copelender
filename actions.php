@@ -3,6 +3,7 @@ require_once 'includes/utils.php';
 
 use Src\Module\Auth\Login;
 use Src\Module\Auth\Register;
+use Src\Module\User\UserCrudActions;
 use Src\Module\LoanApplication\LoanApplicationCrudActions;
 
 $action = $_POST['action'];
@@ -40,6 +41,10 @@ if (!empty($action))
                 
             case DEF_MODULE_ID_LOAN_APPLICATION:
                 $objAction =  new LoanApplicationCrudActions($ar);
+                break; 
+
+            case DEF_MODULE_ID_USER:
+                $objAction =  new UserCrudActions($ar);
                 break;
                 
         }
