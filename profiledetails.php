@@ -62,6 +62,7 @@ if (count($rs) > 0)
 	$state = $rs['state'];
 	$postal = $rs['postal'];
 	$dob = $rs['dob'];
+	$userIsAdmin = doTypeCastInt($rs['isadmin']);
 
 	$address = $address .' ,'. $city . ' ,'. $state . ' ,'. $postal . ' ,'. $country;
 }
@@ -191,10 +192,10 @@ if (count($rs) > 0)
                 </div>
             </div>
 						
-            <?php if (!$isAdmin) 
+            <?php if (!$userIsAdmin) 
 			{
 				if ($isEligible)
-				{
+				{ 
 			?>
 					<div class="text-end mt-4">
 						<button id="disableInfoBtn" class="geex-btn geex-btn--danger">
