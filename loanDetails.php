@@ -4,6 +4,8 @@
 <?php 
 $pageTitle = 'Loan Details';
 require_once 'common/header.php'; 
+doCheckUserIsLoggedInAndRedirect('user', 'login');
+
 $module = DEF_MODULE_ID_LOAN_APPLICATION;
 
 $id = $_REQUEST['id'] ?? '';

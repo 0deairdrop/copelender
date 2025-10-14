@@ -9,6 +9,8 @@ require_once 'common/header.php';
 <main class="geex-main-content">
 <?php 
 require_once 'common/menu.php';
+doCheckUserIsLoggedInAndRedirect('user', 'login');
+
 $isAdmin = doTypeCastInt(getLoggedInUserDetailsByKey('isadmin'));
 use Src\Module\Dashboard\DashboardFunctions;
 DashboardFunctions::getQueryCondition();

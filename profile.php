@@ -1,7 +1,7 @@
 <?php
-
 $pageTitle = 'Profile';
 require_once 'common/header.php'; 
+doCheckUserIsLoggedInAndRedirect('user', 'login');
 
 use Src\Module\User\UserFunctions;
 

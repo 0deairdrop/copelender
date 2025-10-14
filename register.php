@@ -5,6 +5,7 @@
 $pageTitle = 'Register';
 $redirect = 'verification';
 require_once 'common/header.php';
+
 $module = DEF_MODULE_ID_AUTH;
 ?>
 

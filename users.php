@@ -1,6 +1,8 @@
 <?php
 $pageTitle = 'User Management';
 require_once 'common/header.php';
+doCheckUserIsLoggedInAndRedirect('user', 'login');
+
 use Src\Module\User\UserFunctions;
 $moduleId = DEF_MODULE_ID_LOAN_APPLICATION;
 $userid = getLoggedInUserDetailsByKey('id');

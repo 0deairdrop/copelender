@@ -5,6 +5,8 @@
 
 $pageTitle = 'Loan Application';
 require_once 'common/header.php'; 
+doCheckUserIsLoggedInAndRedirect('user', 'login');
+
 $module = DEF_MODULE_ID_LOAN_APPLICATION;
 $rs = Src\Module\LoanApplication\LoanApplicationFunctions::invokeGetUserLoans();
 

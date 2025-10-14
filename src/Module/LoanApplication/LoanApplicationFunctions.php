@@ -243,22 +243,28 @@ class LoanApplicationFunctions
     }
 
     public static function invokeProcessProcessLoanRecurringPayment($arParams= [])
-    {
+    {    
         $record = invokeGetValueFromRequest($arParams, 'record');
         $type = invokeGetValueFromRequest($arParams, 'type', 'normal');
         self::$cdate = invokeGetValueFromRequest($arParams, 'cdate',  getCurrentDate());
-        self::$cuserId = invokeGetValueFromRequest($arParams, 'cuser',  getLoggedInUserDetailsByKey());
-     
-        $rs = Crud::select(
-            self::$tableItems,
-            [
-                'columns' => ['id', 'amount', 'status', 'tdate', 'parent_id'],
-                'where' => [
-                    'id' => $record
+        //self::$cuserId = invokeGetValueFromRequest($arParams, 'cuser',  getLoggedInUserDetailsByKey());
+        self::$cuserId = invokeGetValueFromRequest($arParams, 'cuser',  '');
+        $rs = invokeGetValueFromRequest($arParams, 'rs',  []);
+        //print_r(self::$cuserId); exit;
+        
+        if (count($rs) == 0)
+        {
+            $rs = Crud::select(
+                self::$tableItems,
+                [
+                    'columns' => ['id', 'amount', 'status', 'tdate', 'parent_id'],
+                    'where' => [
+                        'id' => $record
+                    ]
+                    ,'returnType' => 'row'
                 ]
-                ,'returnType' => 'row'
-            ]
-        );
+            );
+        }
 
         if ($rs)
         {
@@ -380,12 +386,16 @@ class LoanApplicationFunctions
         $tdate = invokeGetValueFromRequest($arParams, 'tdate');
         $reference = invokeGetValueFromRequest($arParams, 'reference');
         $title = invokeGetValueFromRequest($arParams, 'title', 'Loan has been');
+        $rsx = invokeGetValueFromRequest($arParams, 'rsx', []);
 
         if (strlen($userId) == 36)
         {
-            $rsx = UserFunctions::getUserInfo(
-                $userId, ['username', 'email']
-            );
+            if (count($rsx) == 0)
+            {
+                $rsx = UserFunctions::getUserInfo(
+                    $userId, ['username', 'email']
+                );
+            }
 
             if ($rsx)
             {
@@ -395,11 +405,11 @@ class LoanApplicationFunctions
                 {
                     $body = EmailTemplatesFunctions::getModuleEmailTemplate([
                            'name' => $name
-                        , 'amount' => $totalAmount 
+                        , 'amount' => doNumberFormat($totalAmount )
                         , 'status' => $action
                         , 'type' => $type
                         , 'reference' => $reference
-                        , 'date' => $tdate
+                        , 'date' => doTextDateFormating($tdate)
                         , 'loanTitle' => $loanTitle
                     ]);
 
@@ -466,11 +476,6 @@ class LoanApplicationFunctions
         }
 
         return [];
-    }
-    
-    public static function invokeSendRecurringPaymentReminder($ar=[])
-    {
-
     }
 
     public static function getLoanName($record)
