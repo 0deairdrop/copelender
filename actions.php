@@ -46,6 +46,9 @@ if (!empty($action))
             case DEF_MODULE_ID_USER:
                 $objAction =  new UserCrudActions($ar);
                 break;
+            default:
+                json_encode(['status' => 'false', 'message' => 'Unknown Module']);
+                break;
                 
         }
     

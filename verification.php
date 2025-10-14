@@ -78,7 +78,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "actions.php",
-            data: { action: "resend_code", email: $("input[name=email]").val(), moduleId: module },
+            data: { action: "regenerateOtp", email: $("input[name=email]").val(), moduleId: module },
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {
