@@ -130,7 +130,7 @@ $redirect = 'loanDetails';
 		</div>
 	</main>
 <script>
- print_r($isadmin)
+
 var module = '<?= $module; ?>';
 function doMakePayment(id) {
     Swal.fire({

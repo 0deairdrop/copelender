@@ -195,7 +195,7 @@ if (count($rs) > 0)
             <?php if (!$userIsAdmin) 
 			{
 				if ($isEligible)
-				{
+				{ 
 			?>
 					<div class="text-end mt-4">
 						<button id="disableInfoBtn" class="geex-btn geex-btn--danger">
