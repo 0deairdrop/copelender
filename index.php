@@ -2480,7 +2480,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-// Replace the broken script tag with this correct version:
 
 <script>
 // Preloader Script
