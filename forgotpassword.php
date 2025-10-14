@@ -12,8 +12,8 @@ require_once 'common/header.php';
 				<div class="geex-content__authentication__content__wrapper">
 					<div class="geex-content__authentication__content__logo">
 						<a href="index.html">
-							<img class="logo-lite" src="assets/img/logo-dark.svg" alt="logo">
-							<img class="logo-dark" src="assets/img/logo-lite.svg" alt="logo">
+							<img class="logo-lite" src="assets/img/cope2.png" alt="copelender"
+				     style="display: block; margin: 0 auto; max-height: 100px; width: auto; max-width: 100%;" />
 						</a>
 					</div>
 					<form id="signInForm" class="geex-content__authentication__form">
@@ -25,7 +25,7 @@ require_once 'common/header.php';
 							<i class="uil-envelope"></i>
 						</div>
 						<button type="submit" class="geex-content__authentication__form-submit">Forget Password</button>
-						<a href="signin.html" class="geex-content__authentication__form-submit return-btn">Back to Login</a>
+						<a href="login" class="geex-content__authentication__form-submit return-btn">Back to Login</a>
 					</form>
 				</div>
 			</div>	

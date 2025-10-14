@@ -62,6 +62,7 @@ if (count($rs) > 0)
 	$state = $rs['state'];
 	$postal = $rs['postal'];
 	$dob = $rs['dob'];
+	$userIsAdmin = doTypeCastInt($rs['isadmin']);
 
 	$address = $address .' ,'. $city . ' ,'. $state . ' ,'. $postal . ' ,'. $country;
 }
@@ -191,7 +192,7 @@ if (count($rs) > 0)
                 </div>
             </div>
 						
-            <?php if (!$isAdmin) 
+            <?php if (!$userIsAdmin) 
 			{
 				if ($isEligible)
 				{

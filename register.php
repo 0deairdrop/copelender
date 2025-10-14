@@ -15,13 +15,13 @@ $module = DEF_MODULE_ID_AUTH;
 				<div class="geex-content__authentication__content__wrapper">
 					<div class="geex-content__authentication__content__logo">
 						<a href="index">
-							<img class="logo-lite" src="assets/img/logo-dark.svg" alt="logo">
-							<img class="logo-dark" src="assets/img/logo-lite.svg" alt="logo">
-						</a>
+							<img class="logo-lite" src="assets/img/cope2.png" alt="copelender"
+				     style="display: block; margin: 0 auto; max-height: 100px; width: auto; max-width: 100%;" />
+				   </a>
 					</div>
 					<form id="signInForm" class="geex-content__authentication__form" method="post">
 						<input type="hidden" name="action" value="register" >
-						<h2 class="geex-content__authentication__title">Sing Up Your Account 👋</h2>
+						<h2 class="geex-content__authentication__title">Sign Up Your Account 👋</h2>
 						<div class="geex-content__authentication__form-group">
 							<label for="username">First Name</label>
 							<input type="firstname" id="firstname" name="firstname" placeholder="Enter Your First Name" required>
@@ -58,7 +58,7 @@ $module = DEF_MODULE_ID_AUTH;
 						</div>
 						<button type="submit" class="geex-content__authentication__form-submit">Sign Up</button>				
 						<div class="geex-content__authentication__form-footer">
-							already have an account? <a href="index">Sign In</a>
+							already have an account? <a href="login">Sign In</a>
 						</div>
 					</form>
 				</div>

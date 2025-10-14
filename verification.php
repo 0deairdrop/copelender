@@ -19,7 +19,7 @@ $module = DEF_MODULE_ID_AUTH;
 				<div class="geex-content__authentication__content__wrapper">
 					<div class="geex-content__authentication__content__logo">
 						<a href="index.html">
-							<img src="./assets/img/logo.svg" alt="">
+							<img src="assets/img/cope2.png" alt="copelender" alt="">
 						</a>
 					</div>
 					<form id="verification" class="geex-content__authentication__form" method="post">
