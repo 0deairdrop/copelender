@@ -57,7 +57,7 @@ class DashboardFunctions
         return [];
     }
 
-    public static function invokeGetAdminLoanData($status='pending', $order='cdate')
+    public static function invokeGetAdminLoanData($status='pending', $order='cdate DESC')
     {
         $arWhere = [
              'status' => $status
