@@ -180,6 +180,8 @@ class Register
                 $this->tableUserVerification
                 , $data
             );
+            // push session as actiev
+            $_SESSION['user']['active'] = 1;
 
             $data['email'] = $this->email;
         }
