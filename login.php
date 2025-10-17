@@ -21,7 +21,7 @@ $module = DEF_MODULE_ID_AUTH;
 					</div>
 					<form id="signInForm" class="geex-content__authentication__form" method="post">
 						<input type="hidden" name="action" value="login">
-						<h2 class="geex-content__authentication__title">Sing In to Your Account 👋</h2>
+						<h2 class="geex-content__authentication__title">Sign In to Your Account 👋</h2>
 						<div class="geex-content__authentication__form-group">
 							<label for="usernameOrEmail">Email or Username</label>
 							<input type="text" id="usernameOrEmail" name="usernameOrEmail" placeholder="Enter Your Email or Username" required>
