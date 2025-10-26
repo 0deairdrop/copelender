@@ -2,7 +2,18 @@
 <html lang="en" dir="ltr">
 <?php
 $pageTitle = 'Loan Report';
+
 require_once 'common/header.php';
+doCheckUserIsLoggedInAndRedirect('user', 'login');
+use Src\Module\User\UserFunctions;
+use Src\Module\Dashboard\FinancialReportsFunctions;
+$rs = FinancialReportsFunctions::invokeGetFinancialReportData();
+$arLoanApplications = $rs['arLoanApplications'];
+$arDashBoardCount = $rs['arDashBoardCount'];
+$arApprovalRate = $rs['arApprovalRate'];
+$arLoanDistribution = $rs['arLoanDistribution'];
+$arLoanStats = $rs['arLoanStats'];
+//echo('<pre>'); print_r($rs); exit;
 ?>
 
 <body class="geex-dashboard">
@@ -181,8 +192,8 @@ require_once 'common/header.php';
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-content">
-                        <h3>Total Customers</h3>
-                        <div class="stat-value">1</div>
+                        <h3>Total Debtors</h3>
+                        <div class="stat-value"><?= doTypeCastInt($arDashBoardCount['totalCustomer'])?></div>
                     </div>
                     <div class="stat-icon blue">👥</div>
                 </div>
@@ -190,24 +201,23 @@ require_once 'common/header.php';
                 <div class="stat-card">
                     <div class="stat-content">
                         <h3>Total Loans</h3>
-                        <div class="stat-value">0</div>
-                        <div class="stat-subtext">0 approved, 0 pending</div>
+                        <div class="stat-value"><?= doTypeCastInt($arDashBoardCount['totalLoans'])?></div>
                     </div>
                     <div class="stat-icon purple">💳</div>
                 </div>
 
                 <div class="stat-card">
                     <div class="stat-content">
-                        <h3>Loan Portfolio</h3>
-                        <div class="stat-value">$0</div>
+                        <h3>Total Amount Disbursed</h3>
+                        <div class="stat-value">NGN <?= doNumberFormat($arDashBoardCount['loanPortFolio'])?></div>
                     </div>
                     <div class="stat-icon green">💰</div>
                 </div>
 
                 <div class="stat-card">
                     <div class="stat-content">
-                        <h3>Collections</h3>
-                        <div class="stat-value">$0</div>
+                        <h3>Total Interest Generated</h3>
+                        <div class="stat-value">NGN <?= doNumberFormat($arDashBoardCount['totalIntrest'])?></div>
                     </div>
                     <div class="stat-icon yellow">📈</div>
                 </div>
@@ -217,23 +227,23 @@ require_once 'common/header.php';
                 <div class="metric-card">
                     <h4>Loan Approval Rate</h4>
                     <div class="metric-value green">
-                        0% <span class="metric-trend">↗</span>
+                        <?= doTypeCastInt($arApprovalRate['loanApprovalRate'])?> % <span class="metric-trend">↗</span>
                     </div>
-                    <p class="metric-description">0 out of 0 applications approved</p>
+                    <p class="metric-description"> <?= doTypeCastInt($arApprovalRate['totalApprovedLoans'])?> out of  <?= doTypeCastInt($arApprovalRate['totalLoans'])?> applications approved</p>
                 </div>
 
                 <div class="metric-card">
                     <h4>Repayment Rate</h4>
                     <div class="metric-value green">
-                        0% <span class="metric-trend">↗</span>
+                        <?= doTypeCastInt($arApprovalRate['loanRepaymentRate'])?> % <span class="metric-trend">↗</span>
                     </div>
-                    <p class="metric-description">0 out of 0 repayments completed</p>
+                    <p class="metric-description"><?= doTypeCastInt($arApprovalRate['totalProcessedRepayments'])?> out of <?= doTypeCastInt($arApprovalRate['totalRepayment'])?> repayments completed</p>
                 </div>
 
                 <div class="metric-card">
                     <h4>Overdue Accounts</h4>
                     <div class="metric-value yellow">
-                        0 <span style="color: #f59e0b;">⚠</span>
+                        <?= doTypeCastInt($arApprovalRate['pendingAccounts'])?><span style="color: #f59e0b;">⚠</span>
                     </div>
                     <p class="metric-description">Accounts requiring attention</p>
                 </div>
@@ -243,40 +253,130 @@ require_once 'common/header.php';
                 <h3>Loan Status Distribution</h3>
                 <div class="status-items">
                     <div class="status-item">
-                        <div class="status-count green">0</div>
+                        <div class="status-count green"><?= doTypeCastInt($arLoanStats['totalApprovedLoans'])?></div>
                         <span class="status-badge approved">Approved</span>
                     </div>
                     <div class="status-item">
-                        <div class="status-count yellow">0</div>
+                        <div class="status-count yellow"><?= doTypeCastInt($arLoanStats['totalPendingLoans'])?></div>
                         <span class="status-badge pending">Pending</span>
                     </div>
                     <div class="status-item">
-                        <div class="status-count red">0</div>
+                        <div class="status-count red"><?= doTypeCastInt($arLoanStats['totalRejectedLoans'])?></div>
                         <span class="status-badge rejected">Rejected</span>
                     </div>
                 </div>
             </div>
 
             <div class="table-section">
-                <h3>Recent Loan Applications</h3>
+                <h3>Recent Loans</h3>
                 <table class="table-reviews-geex-1">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Loan Title</th>
-                            <th>Repayment Type</th>
                             <th>Application Date</th>
+                            <th>Repayment Type</th>
                             <th>Amount</th>
                             <th>Total Amount</th>
+                            <th>Intrest Amount</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Approved By</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td colspan="7" style="text-align:center; padding:40px; color:#6c757d;">
-                                No loan applications found
-                            </td>
-                        </tr>
+                       <tbody>
+					<?php 
+					$i = 0;
+                    $arUsers = [];
+					if (count($arLoanApplications) > 0) 
+					{ 
+						foreach ($arLoanApplications as $r) 
+						{
+							$id = $r['id'];
+							$name = $r['name'];
+							$amount = doTypeCastDouble($r['amount']);
+							$totalAmount = doTypeCastDouble($r['total_amount']);
+							$duration = doTypeCastInt($r['duration']);
+							$approved  = doTypeCastInt($r['approved']);
+							$repaymentType = strtoupper($r['repayment_type']);
+							$status = $r['status'];
+							$cdate = $r['cdate'];
+							$approvedUserId = $r['approved_by'];
+
+                            if(!array_key_exists($approvedUserId, $arUsers))
+                            {
+                                $arUsers[$approvedUserId] =  UserFunctions::getUserFullName($approvedUserId);
+                            }
+							$i++;
+                            // Decide badge color
+							switch($status)
+							{
+								case 'approved':
+									$badgeClass = 'geex-badge geex-badge--success-transparent';
+									break;
+
+								case 'pending':
+									$badgeClass = 'geex-badge geex-badge--warning-transparent';
+									break;
+									
+								case 'rejected':
+								case 'closed':
+									$badgeClass = 'geex-badge geex-badge--danger-transparent';
+									break;
+
+								case 'completed':
+									$badgeClass = 'geex-badge geex-badge--info-transparent';
+									break;
+							}
+					?>
+						<tr data-id="<?= $id ?>">
+							<td>
+								<span class="name"><?= $i ?></span>
+							</td>
+							<td>
+								<div class="author-area">
+									<p>
+										<a href="<?= DEF_ROOT_PATH ?>/loanDetails?id=<?= $id ?>" style="color: #2c7be5; font-weight: 600; text-decoration: none;">
+											<?= htmlspecialchars($name) ?>
+										</a>
+									</p>
+								</div>
+							</td>
+                            <td>
+								<span class="name"><?= $cdate ?></span>
+							</td>
+							<td>
+								<span class="designation"><?= $repaymentType ?></span>
+							</td>
+							<td><span><?= 'NGN ' . doNumberFormat($amount) ?></span></td>
+							<td><span><?= 'NGN ' . doNumberFormat($totalAmount) ?></span></td>
+                             <td>
+								<span><?= 'NGN ' . doNumberFormat($r['interest_amount']) ?></span></td>
+							</td>
+                            <td>
+								<span class="designation"><?= formatDate($r['approved_date'],'Y-m-d') ?></span>
+							</td>
+                            <td>
+								<span class="designation"><?= formatDate($r['expected_closing_date'],'Y-m-d') ?></span>
+							</td>
+                              <td>
+								<span class="name"><?= $arUsers[$approvedUserId] ?></span>
+							</td>
+							<td>
+								<span class=" <?= $badgeClass ?>"><?= $status ?></span>
+							</td>
+						</tr>
+					<?php 
+					} 
+						} 
+					else 
+					{ ?>
+					<tr>
+						<td colspan="9" style="text-align:center;">No records found</td>
+					</tr>
+					<?php } ?>
                     </tbody>
                 </table>
             </div>

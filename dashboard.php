@@ -115,10 +115,9 @@ $rs = DashboardFunctions::getUserDashboardData();
 			</div>
 		</div>
   	</main>
-
+	
 	<!-- inject:js-->
 	<?php require_once 'common/footer.php'; ?>
   	<!-- endinject-->
 </body>
-
 </html>

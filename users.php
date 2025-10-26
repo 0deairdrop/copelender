@@ -4,7 +4,7 @@ require_once 'common/header.php';
 doCheckUserIsLoggedInAndRedirect('user', 'login');
 
 use Src\Module\User\UserFunctions;
-$moduleId = DEF_MODULE_ID_LOAN_APPLICATION;
+$moduleId = DEF_MODULE_ID_USER;
 $userid = getLoggedInUserDetailsByKey('id');
 
 $rs = UserFunctions::getAllUsersInfo([
@@ -355,7 +355,15 @@ $(function(){
         const cid = $form.find('input[name="customerId"]').val();
         if(mode === 'edit' && cid) fd.append('customerId', cid);
 
-        $('body').append('<div id="block-overlay" class="geex-overlay">Processing...</div>');
+       	$("body").append(`
+                <div id="block-overlay" 
+                     style="position:fixed; top:0; left:0; width:100%; height:100%;
+                            background:rgba(0,0,0,0.5); z-index:9999; display:flex;
+                            align-items:center; justify-content:center; color:#fff;
+                            font-size:20px; font-weight:bold;">
+                    Processing...
+                </div>
+            `);
         $.ajax({
             type: 'POST',
             url: 'actions',

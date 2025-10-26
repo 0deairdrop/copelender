@@ -5,7 +5,7 @@
 $pageTitle = 'Verification';
 $redirect = 'dashboard';
 require_once 'common/header.php'; 
-
+doCheckUserIsLoggedInAndRedirect('user', 'login');
 $arUser = $_SESSION['user'];
 $email = $arUser['email'];
 $module = DEF_MODULE_ID_AUTH;

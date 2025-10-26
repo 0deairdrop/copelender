@@ -75,7 +75,7 @@ class Param
                 $data = [
                     'usernameOrEmail' => [
                         'method' => 'post',
-                        'length' => [8,200],
+                        'length' => [5,200],
                         'label' => 'Username or Email',
                         'required' => true,
                         'type' => 'string',

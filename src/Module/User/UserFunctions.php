@@ -5,8 +5,6 @@ use Src\Crud\Crud;
 use Src\Crud\ModuleCommonFunctions;
 use Src\EmailTemplates\EmailTemplatesFunctions;
 
-
-
 class UserFunctions
 {
     
@@ -226,6 +224,7 @@ class UserFunctions
                     'where' => [
                          $dbField => $value
                         , 'deleted' => 0
+                        , 'isadmin' => 0
                     ]
                 ]
             );

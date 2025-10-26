@@ -74,7 +74,7 @@
 						</div>
 
 						<?php require_once 'common/admin/pendingloans.php'?>
-						<?php require_once 'common/admin/graphs.php'?>
+						<?php //require_once 'common/admin/graphs.php'?>
 
 						<div class="geex-content__section geex-content__transaction">
 							<div class="geex-content__section__header">
