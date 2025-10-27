@@ -119,6 +119,7 @@ $arLoanStats = $rs['arLoanStats'];
                 }
                 .metric-value.green { color: #059669; }
                 .metric-value.yellow { color: #f59e0b; }
+                .metric-value.red { color: #eb2727ff; }
                 .status-distribution {
                     background: #fff;
                     border: 1px solid #e9ecef;
@@ -222,20 +223,35 @@ $arLoanStats = $rs['arLoanStats'];
                     <div class="stat-icon yellow">📈</div>
                 </div>
             </div>
+                <?php
+                    $arrowRepayment = $arrowApproval = '↗';
+                    $classRepayment = $classApproval  = 'green';
 
+                    if (doTypeCastInt($arApprovalRate['loanApprovalRate']) < 50)
+                    {
+                        $arrowApproval = '↙';
+                        $classApproval  = 'red';
+                    } 
+                    
+                    if (doTypeCastInt($arApprovalRate['totalProcessedRepayments']) < 50)
+                    {
+                        $arrowRepayment = '↙';
+                        $classRepayment  = 'red';
+                    }
+                ?>
             <div class="metrics-row">
                 <div class="metric-card">
                     <h4>Loan Approval Rate</h4>
-                    <div class="metric-value green">
-                        <?= doTypeCastInt($arApprovalRate['loanApprovalRate'])?> % <span class="metric-trend">↗</span>
+                    <div class="metric-value <?= $classApproval ?>">
+                        <?= doTypeCastInt($arApprovalRate['loanApprovalRate'])?> % <span class="metric-trend"><?= $arrowApproval ?></span>
                     </div>
                     <p class="metric-description"> <?= doTypeCastInt($arApprovalRate['totalApprovedLoans'])?> out of  <?= doTypeCastInt($arApprovalRate['totalLoans'])?> applications approved</p>
                 </div>
 
                 <div class="metric-card">
                     <h4>Repayment Rate</h4>
-                    <div class="metric-value green">
-                        <?= doTypeCastInt($arApprovalRate['loanRepaymentRate'])?> % <span class="metric-trend">↗</span>
+                    <div class="metric-value <?= $classRepayment ?>">
+                        <?= doTypeCastInt($arApprovalRate['loanRepaymentRate'])?> % <span class="metric-trend"><?= $arrowRepayment ?></span>
                     </div>
                     <p class="metric-description"><?= doTypeCastInt($arApprovalRate['totalProcessedRepayments'])?> out of <?= doTypeCastInt($arApprovalRate['totalRepayment'])?> repayments completed</p>
                 </div>

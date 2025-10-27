@@ -87,8 +87,10 @@ class FinancialReportsFunctions
 
             if (count($rsRepayment) > 0)
             {   
-                $totalRepayment = doTypeCastInt($rsRepayment['paid']) + doTypeCastInt($rsRepayment['pending']);
-                $totalProcessedRepayments = doTypeCastInt($rsRepayment['paid']);
+                $totalPaid = $rsRepayment['paid'] ?? 0;
+                $totalPending = $rsRepayment['pending'] ?? 0;
+                $totalRepayment = doTypeCastInt($totalPaid) + doTypeCastInt($totalPending);
+                $totalProcessedRepayments = $totalPaid;
                 if ($totalRepayment > 0)
                 {
                     $loanRepaymentRate = ($totalProcessedRepayments/$totalRepayment ) * 100;
@@ -129,10 +131,15 @@ class FinancialReportsFunctions
         $totalApprovedLoans = $totalClosedLoans = $totalPendingLoans = $totalRejectedLoans = 0;
         if (count($rsLoans) > 0)
         {
-            self::$totalApproveLoans = $totalApprovedLoans = $rsLoans['approved'] + $rsLoans['completed'] +  $rsLoans['closed'];
-            $totalClosedLoans = $rsLoans['closed'];
-            $totalPendingLoans = $rsLoans['pending'];
-            $totalRejectedLoans = $rsLoans['rejected'];
+            $closed = $rsLoans['closed'] ?? 0;
+            $pending = $rsLoans['pending'] ?? 0;
+            $rejected = $rsLoans['rejected'] ?? 0;
+            $approved = $rsLoans['approved'] ?? 0;
+            $completed = $rsLoans['completed'] ?? 0;
+            self::$totalApproveLoans = $totalApprovedLoans =  $approved +  $completed +   $closed;
+            $totalClosedLoans = $closed;
+            $totalPendingLoans = $pending;
+            $totalRejectedLoans = $rejected;
 
             self::$totalLoans = self::$totalApproveLoans  +  $totalPendingLoans + $totalRejectedLoans;
         }
