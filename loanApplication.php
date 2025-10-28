@@ -19,7 +19,7 @@ if ($rsxUser)
 {
 	$allowToLoan = doTypeCastInt($rsxUser['is_eligible']);
 }
-$redirect = 'loanApplication';
+$redirect = 'loanapplication';
 ?>
 
 <body class="geex-dashboard">

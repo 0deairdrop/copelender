@@ -10,7 +10,7 @@ $module = DEF_MODULE_ID_LOAN_APPLICATION;
 $id = $_REQUEST['id'] ?? '';
 if (strlen($id) != 36)
 {
-   header("Location: loanApplication");
+   header("Location: loanapplication");
     exit;
 }
 $isAdmin = doTypeCastInt(getLoggedInUserDetailsByKey('isadmin'));
