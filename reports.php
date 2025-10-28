@@ -14,6 +14,7 @@ $arApprovalRate = $rs['arApprovalRate'];
 $arLoanDistribution = $rs['arLoanDistribution'];
 $arLoanStats = $rs['arLoanStats'];
 //echo('<pre>'); print_r($rs); exit;
+$redirect = $module = '';
 ?>
 
 <body class="geex-dashboard">

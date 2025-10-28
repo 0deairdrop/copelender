@@ -100,8 +100,7 @@ EOQ;
 <body>
   <div class="email-container">
     <div class="header">
-     <!--  <img src="../../../uploads/tog/logo.png" alt="Tailor on the Go Logo">Replace with your logo  -->
-      <img src="https://tog.tkaykoncepts.com/uploads/tog/logo.png" alt="Tailor on the Go Logo"> <!-- Replace with your logo -->
+      <img src="https://coopelender.gossipears.com/assets/img/cope2.png" alt="Copelender"> 
       <h4>{$title}</h4>
     </div>
     <div class="body">
@@ -110,10 +109,10 @@ EOQ;
         {$otpSection}
       <p>{$subText}</p>
       <p>For customer service inquiries, please contact <a href="malto:admin@tailoronthego.com">Customer Support</a>.</p>
-      <p>{$teamGreeting},<br>Tailor on the go Team</p>
+      <p>{$teamGreeting},<br>CopelenderTeam</p>
     </div>
     <div class="footer">
-      <p>&copy; {$year} Tailor on the go App</p>
+      <p>&copy; {$year} Copelender</p>
     </div>
   </div>
 </body>

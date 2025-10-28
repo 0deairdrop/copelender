@@ -11,7 +11,7 @@ if (strlen($userId) != 36)
 {
 	$userId = getLoggedInUserDetailsByKey();
 }
-
+$redirect =  $module = '';
 $id = $username = $firstname = $lastname = $phoneNumber = $email = $active = '';
 $nationalId = $address = $montlyIncome = $occupation = $bankName = $bankAccounHolderName = '';
 $accountNumber = $identification = $isEligible = $city = $state = $postal = $country = $dob = '';

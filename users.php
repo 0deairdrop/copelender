@@ -12,6 +12,7 @@ $rs = UserFunctions::getAllUsersInfo([
     , 'reference' , 'firstname', 'lastname', 'phone_number' , 'email', 'is_eligible'
     ,'active', 'isadmin'
 ]);
+$redirect = $module = '';
 ?>
 <body class="geex-dashboard">
 <main class="geex-main-content">
@@ -106,7 +107,7 @@ $rs = UserFunctions::getAllUsersInfo([
 							<?php if ($isAdmin) {?>
 								<td>
 									<button type="button" class="geex-btn geex-btn--primary" onclick="downgradeUser(
-									'<?= $id ?>', '<?= $name ?>', '<?= $amount ?>', '<?= $totalAmount ?>', '<?= $duration ?>', '<?= strtolower($repaymentType) ?>', '<?= $purpose ?>')">
+									'<?= $id ?>')">
 										Downgrade
 									</button>
 								</td>
@@ -117,7 +118,7 @@ $rs = UserFunctions::getAllUsersInfo([
 							{
 							?>
                                 <td>
-									<button type="button" class="geex-btn geex-btn--danger" onclick="deactiavet('<?= $id ?>')">
+									<button type="button" class="geex-btn geex-btn--danger" onclick="deactivateUser('<?= $id ?>')">
 										Deactivate
 									</button>
 								</td>

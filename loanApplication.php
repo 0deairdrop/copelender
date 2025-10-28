@@ -5,6 +5,7 @@
 
 $pageTitle = 'Loan Application';
 require_once 'common/header.php'; 
+
 doCheckUserIsLoggedInAndRedirect('user', 'login');
 
 $module = DEF_MODULE_ID_LOAN_APPLICATION;
@@ -118,7 +119,7 @@ $redirect = 'loanApplication';
 							<td>
 								<div class="author-area">
 									<p>
-										<a href="<?= DEF_ROOT_PATH ?>/loanDetails?id=<?= $id ?>" style="color: #2c7be5; font-weight: 600; text-decoration: none;">
+										<a href="<?= DEF_ROOT_PATH ?>/loandetails?id=<?= $id ?>" style="color: #2c7be5; font-weight: 600; text-decoration: none;">
 											<?= htmlspecialchars($name) ?>
 										</a>
 									</p>

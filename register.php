@@ -5,7 +5,6 @@
 $pageTitle = 'Register';
 $redirect = 'verification';
 require_once 'common/header.php';
-
 $module = DEF_MODULE_ID_AUTH;
 ?>
 
@@ -50,7 +49,7 @@ $module = DEF_MODULE_ID_AUTH;
 							<div class="geex-content__authentication__label-wrapper">
 								<label for="confirm_password">Confirm Password</label>
 							</div>
-							<input type="confirm_password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+							<input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
 							<i class="uil-eye toggle-password-type"></i>
 						</div>
 						<div class="geex-content__authentication__form-group custom-checkbox">

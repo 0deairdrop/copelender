@@ -4,6 +4,7 @@
 <?php
 $pageTitle = 'Notifications';
 require_once 'common/header.php';
+$redirect = $module = '';
 ?>
 
 <body class="geex-dashboard" style="background: #f5f3f7;">

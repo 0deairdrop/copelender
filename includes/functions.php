@@ -283,13 +283,14 @@ function getLoggedInUserDetailsByKey($key='id')
   {
     $arGlobalUser = $_SESSION['user'];
   }
-
-  if (array_key_exists($key, $arGlobalUser))
+  if (count($arGlobalUser) > 0)
   {
-    return $arGlobalUser[$key];
+    if (array_key_exists($key, $arGlobalUser))
+    {
+      return $arGlobalUser[$key];
+    }
   }
   return '';
-  
 }
 
 function getFormattedDate($date, $format='')

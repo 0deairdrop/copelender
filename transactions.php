@@ -20,6 +20,7 @@ if (!$isAdmin)
 	DashboardFunctions::$userId = getLoggedInUserDetailsByKey();
 }
 $rs['arTransactions'] = DashboardFunctions::getAllUserTransactions();
+$redirect = $module = '';
 ?>
 <div class="geex-customizer">	
 </div>

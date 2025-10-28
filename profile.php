@@ -6,7 +6,7 @@ doCheckUserIsLoggedInAndRedirect('user', 'login');
 use Src\Module\User\UserFunctions;
 
 $module = DEF_MODULE_ID_USER;
-
+$redirect = '';
 $userId = getLoggedInUserDetailsByKey();
 $isAdmin = doTypeCastInt(getLoggedInUserDetailsByKey('isadmin'));
 

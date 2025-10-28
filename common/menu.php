@@ -159,7 +159,7 @@ $isAdmin = getLoggedInUserDetailsByKey('isadmin');
 						</a>  
 					</li>
 					<li class="geex-sidebar__menu__item has-children">
-						<a href="loanApplication" class="geex-sidebar__menu__link">
+						<a href="loanapplication" class="geex-sidebar__menu__link">
 							<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<g clip-path="url(#clip0_1139_9709)">
 									<path d="M1.83333 10.0833H11.9167C12.4029 10.0833 12.8692 9.89018 13.213 9.54636C13.5568 9.20255 13.75 8.73623 13.75 8.25V1.83333C13.75 1.3471 13.5568 0.880788 13.213 0.536971C12.8692 0.193154 12.4029 0 11.9167 0L1.83333 0C1.3471 0 0.880788 0.193154 0.536971 0.536971C0.193154 0.880788 0 1.3471 0 1.83333L0 8.25C0 8.73623 0.193154 9.20255 0.536971 9.54636C0.880788 9.89018 1.3471 10.0833 1.83333 10.0833ZM1.83333 1.83333H11.9167V8.25H1.83333V1.83333Z" fill="#B9BBBD"/>

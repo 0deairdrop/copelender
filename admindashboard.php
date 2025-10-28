@@ -3,6 +3,7 @@
 
 	<?php
 	$pageTitle = 'Dashboard';
+	$redirect = '';
 	require_once 'common/header.php'; 
 
 	doCheckUserIsLoggedInAndRedirect('user', 'login');
